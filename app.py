@@ -14,12 +14,12 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/label1', methods=['POST'])
+@app.route('/label1', methods=['GET', 'POST'])
 def label1():
     return render_template('label1.html')
 
 
-@app.route('/label2', methods=['POST'])
+@app.route('/label2', methods=['GET', 'POST'])
 def label2():
     return render_template('label2.html')
 
@@ -41,7 +41,7 @@ def wrong():
 ###############
 
 
-@app.route('/upload', methods=['POST'])
+@app.route('/upload', methods=['GET', 'POST'])
 def upload():
     # Überprüfe, ob die Anfrage ein Bild enthält
     if 'image' not in request.files:
@@ -87,7 +87,7 @@ def result():
 ###################
 
 
-@app.route('/process_images', methods=['POST'])
+@app.route('/process_images', methods=['GET', 'POST'])
 def process_images():
     data = request.json
     image1_path = data['image1']  # Pfad zum ersten Bild
