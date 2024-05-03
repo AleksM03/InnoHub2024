@@ -23,5 +23,10 @@ def comparing():
     return render_template('comparing.html')
 
 
+@app.route('/right')
+def right():
+    return render_template('right.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

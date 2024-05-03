@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href='/static/style.css' />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Page</title>
+    <style>
+        /* Neue Stile für den Startbildschirm */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* Vollständige Höhe des Viewports */
+            background-color: #f2f2f2;
+            /* Leicht grauer Hintergrund */
+        }
+
+        .container {
+            width: 75%;
+            /* 75% der Bildschirmbreite */
+            max-width: 800px;
+            /* Maximale Breite von 800px */
+            padding: 20px;
+            text-align: center;
+        }
+
+        .success-icon {
+            margin-top: 20px;
+        }
+
+        .success-title {
+            margin-top: 10px;
+            font-size: 24px;
+        }
+
+        /* Button styles */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 20px;
+            /* Abstand nach oben */
+        }
+
+        button {
+            background-color: #002d72;
+            /* BMW Blue */
+            color: #fff;
+            /* Weißer Text */
+            font-size: 20px;
+            /* Mittelgroße Schrift */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            /* Abgerundete Ecken */
+            cursor: pointer;
+            margin-top: 20px;
+            /* Abstand nach oben */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Das grüne Häckchen -->
+        <div class="success-icon">
+            <img src="/static/green_checkmark.png" alt="Success" width="50">
+        </div>
+        <!-- Titel "Success" -->
+        <div class="success-title">
+            Success
+        </div>
+        <!-- Button -->
+        <div class="button-group">
+            <button id="okButton">Ok</button>
+        </div>
+    </div>
+
+    <script>
+        // Wenn der Ok-Button geklickt wird, leite zur Seite label1 weiter
+        document.getElementById('okButton').addEventListener('click', function () {
+            window.location.href = 'label1.html'; // Ändere diesen Link entsprechend
+        });
+    </script>
+</body>
+
+</html>
