@@ -61,29 +61,12 @@
             margin-top: 20px;
             /* Abstand nach oben */
         }
-
-        /* Stile für den Cancel Button */
-        .cancel-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 40px;
-            height: 40px;
-            background-image: url('/static/x_icon.png');
-            /* Pfad zum Bild */
-            background-size: cover;
-            background-repeat: no-repeat;
-            cursor: pointer;
-            border: none;
-        }
     </style>
 </head>
 
 <body>
 
     <div class="container">
-        <!-- Cancel Button -->
-        <button class="cancel-button" onclick="goBack()" aria-label="Cancel"></button>
         <!-- Das grüne Häckchen -->
         <div class="success-icon">
             <img src="/static/green_checkmark.png" alt="Success" width="50">
@@ -99,10 +82,6 @@
     </div>
 
     <script>
-        // Funktion zum Zurückgehen zur vorherigen Seite
-        function goBack() {
-            window.history.back();
-        }
         // Wenn der Ok-Button geklickt wird, leite zur Seite label1 weiter
         document.getElementById('okButton').addEventListener('click', function () {
             window.location.href = '/label1'; // Ändere diesen Link entsprechend
