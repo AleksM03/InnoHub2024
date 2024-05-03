@@ -24,7 +24,7 @@ def label2():
     return render_template('label2.html')
 
 
-@app.route('/comparing')
+@app.route('/comparing', methods=['GET', 'POST'])
 def comparing():
     return render_template('comparing.html')
 
@@ -86,20 +86,17 @@ def result():
 
 ###################
 
-
-@app.route('/process_images', methods=['GET', 'POST'])
+@app.route('/process_images', methods=['POST'])
 def process_images():
+    # Die Bilder werden als JSON-Daten gesendet
     data = request.json
-    image1_path = data['image1']  # Pfad zum ersten Bild
-    image2_path = data['image2']  # Pfad zum zweiten Bild
+    image1_path = data['image1']
+    image2_path = data['image2']
 
     # Hier kannst du den Algorithmus aufrufen, der die Bilder verarbeitet und das Ergebnis zurückgibt
     result = process_algorithm(image1_path, image2_path)
 
     return jsonify(result=result)
-
-
-# Beispiel-Funktion zum Verarbeiten der Bilder
 
 
 def process_algorithm(image1, image2):

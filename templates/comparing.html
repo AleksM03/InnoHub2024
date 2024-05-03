@@ -79,10 +79,8 @@
             <!-- Hier sollte sich das Ladesymbol befinden -->
             <img src="/static/loading.gif" alt="Loading..." width="50">
         </div>
-        <div class="images">
+        <div class="images" id="imageContainer">
             <!-- Hier sollten die beiden aufgenommenen Bilder nebeneinander angezeigt werden -->
-            <img class="small-image" id="image1" src="/static/temp_images/label1.png" alt="Image 1">
-            <img class="small-image" id="image2" src="/static/temp_images/label2.png" alt="Image 2">
         </div>
         <div class="button-group">
             <button id="cancelButton">Cancel</button>
@@ -111,4 +109,36 @@
 
         // Beispiel-Funktion zum Aufrufen der Python-Methode
         function compare() {
-        // Hier sollte der 
+            // Hier sollte der
+        }
+
+        function loadImages() {
+            var image1 = document.getElementById('image1Input').files[0];
+            var image2 = document.getElementById('image2Input').files[0];
+
+            var reader1 = new FileReader();
+            reader1.onload = function (e) {
+                var image1Data = e.target.result;
+                var img1 = document.createElement('img');
+                img1.src = image1Data;
+                img1.style.width = '100px'; // Anpassen der Bildgröße
+                var container = document.getElementById('imageContainer');
+                container.appendChild(img1);
+            };
+            reader1.readAsDataURL(image1);
+
+            var reader2 = new FileReader();
+            reader2.onload = function (e) {
+                var image2Data = e.target.result;
+                var img2 = document.createElement('img');
+                img2.src = image2Data;
+                img2.style.width = '100px'; // Anpassen der Bildgröße
+                var container = document.getElementById('imageContainer');
+                container.appendChild(img2);
+            };
+            reader2.readAsDataURL(image2);
+        }
+    </script>
+</body>
+
+</html>
