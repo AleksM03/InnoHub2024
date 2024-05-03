@@ -8,46 +8,18 @@
     <title>My BMW Flask Application</title>
     <style>
         /* Neue Stile für den Startbildschirm */
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            /* Vollständige Höhe des Viewports */
-            background-color: #f2f2f2;
-            /* Leicht grauer Hintergrund */
-        }
-
-        .container {
-            width: 75%;
-            /* 75% der Bildschirmbreite */
-            max-width: 800px;
-            /* Maximale Breite von 800px */
-            padding: 20px;
-            text-align: center;
-        }
-
         .start-screen {
-            padding-top: 25%;
-            padding-bottom: 25%;
-            /* Höhe des Startbildschirms 50% der Bildschirmhöhe */
+            height: 50vh;
+            /* Die Hälfte der Bildschirmhöhe einnehmen */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
         }
 
         .start-screen h1 {
-            font-family: Helvetica, Arial, sans-serif;
-            /* Verwende Helvetica */
-            font-size: 48px;
-            /* Größere Schriftgröße */
-            margin-bottom: 20px;
-            /* Abstand zum Logo */
-        }
-
-        /* Stile für das BMW-Logo */
-        .bmw-logo {
-            max-width: 100px;
-            /* Maximale Breite des Logos */
-            margin-bottom: 20px;
-            /* Abstand zum Titel */
+            font-size: 36px;
+            /* Größe des Titels */
         }
 
         /* Stile für den Start-Button */
@@ -75,11 +47,24 @@
 </head>
 
 <body>
+    <header>
+        <h1>Welcome to My BMW Flask Application</h1>
+    </header>
+
+    <nav>
+        <a href="/cakes">Cakes</a>
+    </nav>
+
+    <!-- Startbildschirm -->
     <div class="container start-screen">
-        <img src="/static/bmw-logo-2020.jpg" alt="BMW Logo" class="bmw-logo">
         <h1>BMW Label Scanner</h1>
         <!-- Start-Button -->
-        <a href="label1"><button class="start-button">Start</button></a>
+        <button class="start-button">Start</button>
+    </div>
+
+    <div class="container">
+        <h2>Camera Capture</h2>
+        <!-- Rest des Inhalts -->
     </div>
 
     <script>

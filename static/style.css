@@ -42,18 +42,23 @@ nav a {
 }
 
 /* Button styles */
-button {
+button,
+button.button {
     background-color: #002d72;
     /* BMW Blue */
     color: #fff;
     /* White text color */
-    font-size: 20px;
+    font-size: 16px;
+    /* Mittelgroße Schrift */
     padding: 10px 20px;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
+    /* Abgerundete Ecken */
 }
 
-button:hover {
+button:hover,
+button.button:hover {
     background-color: #001f4f;
     /* Darker blue on hover */
 }
