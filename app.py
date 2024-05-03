@@ -1,3 +1,4 @@
+from flask import request, jsonify
 from flask import Flask, render_template, request, redirect, url_for
 import os
 import tempfile
@@ -85,16 +86,18 @@ def result():
 
 ###################
 
+
 @app.route('/process_images', methods=['POST'])
 def process_images():
     data = request.json
-    image1 =
-    image2 = data['image2']
+    image1_path = data['image1']  # Pfad zum ersten Bild
+    image2_path = data['image2']  # Pfad zum zweiten Bild
 
     # Hier kannst du den Algorithmus aufrufen, der die Bilder verarbeitet und das Ergebnis zurückgibt
-    result = process_algorithm(image1, image2)
+    result = process_algorithm(image1_path, image2_path)
 
     return jsonify(result=result)
+
 
 # Beispiel-Funktion zum Verarbeiten der Bilder
 
