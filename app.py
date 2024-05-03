@@ -13,5 +13,10 @@ def label1():
     return render_template('label1.html')
 
 
+@app.route('/label2')
+def label2():
+    return render_template('label2.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
