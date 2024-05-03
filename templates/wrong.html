@@ -98,6 +98,10 @@
     </div>
 
     <script>
+        // Funktion zum Zurückgehen zur vorherigen Seite
+        function goBack() {
+            window.history.back();
+        }
         // Wenn der Ok-Button geklickt wird, leite zur Seite label1 weiter
         document.getElementById('okButton').addEventListener('click', function () {
             window.location.href = '/label1'; // Ändere diesen Link entsprechend
