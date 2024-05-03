@@ -18,5 +18,10 @@ def label2():
     return render_template('label2.html')
 
 
+@app.route('/comparing')
+def comparing():
+    return render_template('comparing.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
