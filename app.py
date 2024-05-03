@@ -1,6 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
+import os
+import tempfile
 
 app = Flask(__name__)
+
+# Definiere das Verzeichnis für die temporären Bilder
+TEMP_IMAGE_DIR = 'static/temp_images'
 
 
 @app.route('/')
@@ -8,12 +13,12 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/label1')
+@app.route('/label1', methods=['POST'])
 def label1():
     return render_template('label1.html')
 
 
-@app.route('/label2')
+@app.route('/label2', methods=['POST'])
 def label2():
     return render_template('label2.html')
 
@@ -32,11 +37,58 @@ def right():
 def wrong():
     return render_template('wrong.html')
 
+###############
+
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    # Überprüfe, ob die Anfrage ein Bild enthält
+    if 'image' not in request.files:
+        return redirect(request.url)
+
+    image = request.files['image']
+    if image.filename == '':
+        return redirect(request.url)
+
+    # Bestimme den Dateinamen basierend auf der Seite, von der das Bild aufgenommen wurde
+    # Extrahiere den letzten Teil der Referrer-URL
+    page = request.referrer.split("/")[-1]
+    if page == 'label1':
+        filename = 'label1.png'
+    elif page == 'label2':
+        filename = 'label2.png'
+    else:
+        filename = 'image.png'
+
+    # Überprüfe, ob die Datei bereits existiert und ob sie überschrieben werden muss
+    image_path = os.path.join(TEMP_IMAGE_DIR, filename)
+    if os.path.exists(image_path) and (page == 'label1' or not os.path.exists(os.path.join(TEMP_IMAGE_DIR, 'label1.png'))) \
+            and (page == 'label2' or not os.path.exists(os.path.join(TEMP_IMAGE_DIR, 'label2.png'))):
+        os.remove(image_path)
+
+    # Speichere das Bild im temporären Verzeichnis
+    image.save(image_path)
+
+    # Weiterleitung zur Ergebnisseite
+    return redirect(url_for('result'))
+
+# Route für die Ergebnisseite
+
+
+@app.route('/result')
+def result():
+    # Bildpfad für die Anzeige auf der Ergebnisseite
+    image_path = os.path.join(TEMP_IMAGE_DIR, 'image.png')
+
+    return render_template('result.html', image_path=image_path)
+
+
+###################
 
 @app.route('/process_images', methods=['POST'])
 def process_images():
     data = request.json
-    image1 = data['image1']
+    image1 =
     image2 = data['image2']
 
     # Hier kannst du den Algorithmus aufrufen, der die Bilder verarbeitet und das Ergebnis zurückgibt
