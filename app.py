@@ -8,9 +8,9 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/cakes')
-def cakes():
-    return render_template('cakes.html')
+@app.route('/label1')
+def label1():
+    return render_template('label1.html')
 
 
 if __name__ == '__main__':
