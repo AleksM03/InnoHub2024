@@ -25,39 +25,23 @@
             /* Maximale Breite von 800px */
             padding: 20px;
             text-align: center;
+            background-color: #ffffff;
+            /* Hintergrund weiß */
+            border-radius: 10px;
+            /* Abgerundete Ecken */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* Schatten */
         }
 
-        .start-screen {
-            padding-top: 10%;
-            padding-bottom: 10%;
-            /* Höhe des Startbildschirms 50% der Bildschirmhöhe */
+        .loading-icon {
+            margin-top: 20px;
         }
 
-        .container h2 {
-            font-family: Helvetica, Arial, sans-serif;
-            /* Verwende Helvetica */
-            font-size: 24px;
-            /* Größere Schriftgröße */
-            margin-bottom: 30px;
-            /* Abstand zum Logo */
-        }
-
-        /* Video styles */
-        #video {
-            width: 100%;
-            /* Make the video element fill its container */
-            height: auto;
-            /* Maintain aspect ratio */
-            margin-bottom: 20px;
-            /* Add some space below the video */
-        }
-
-        /* Bild-Vorschau-Stile */
-        #cameraImage {
-            max-width: 100%;
-            /* Vollständige Breite */
-            margin-bottom: 20px;
-            /* Abstand zum nächsten Element */
+        .small-image {
+            width: 100px;
+            /* Breite der kleinen Bilder */
+            margin-top: 20px;
+            /* Abstand nach oben */
         }
 
         /* Button styles */
@@ -66,6 +50,8 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            margin-top: 20px;
+            /* Abstand nach oben */
         }
 
         button {
@@ -88,20 +74,48 @@
 
 <body>
     <div class="container">
-        <h2>Shipping Label</h2>
-        <video id="video" autoplay></video> <!-- Removed width and height attributes -->
-        <img id="cameraImage" src="/static/camera.png">
-        <div class="button-group">
-            <button id="capture">Capture</button>
-            <button id="nextButton">Next</button>
+        <h2>Comparing...</h2>
+        <div class="loading-icon">
+            <!-- Hier sollte sich das Ladesymbol befinden -->
+            <img src="/static/loading.gif" alt="Loading..." width="50">
         </div>
-        <button id="requestPermission">Request Camera Permission</button>
+        <div class="images">
+            <!-- Hier sollten die beiden aufgenommenen Bilder nebeneinander angezeigt werden -->
+            <img class="small-image" id="image1" src="/static/camera.png" alt="Image 1">
+            <img class="small-image" id="image2" src="/static/camera.png" alt="Image 2">
+        </div>
+        <div class="button-group">
+            <button id="cancelButton">Cancel</button>
+        </div>
     </div>
 
     <script>
-        // Get the video element
-        let video = document.getElementById('video');
+        // Wenn die Seite geladen wird, rufe die Python-Methode compare auf und zeige das Ergebnis an
+        window.onload = function () {
+            // Rufe die Python-Methode compare auf und erhalte das Ergebnis
+            var result = compare();
+            // Entscheide basierend auf dem Ergebnis, ob die Seite "right" oder "wrong" angezeigt wird
+            if (result === "right") {
+                // Zeige die "right" Seite an
+                window.location.href = '/right'; // Ändere diesen Link entsprechend
+            } else if (result === "wrong") {
+                // Zeige die "wrong" Seite an
+                window.location.href = '/wrong'; // Ändere diesen Link entsprechend
+            }
+        };
 
+        // Wenn der Cancel-Button geklickt wird, breche die Operation ab und kehre zur vorherigen Seite zurück
+        document.getElementById('cancelButton').addEventListener('click', function () {
+            window.history.back();
+        });
+
+        // Beispiel-Funktion zum Aufrufen der Python-Methode
+        function compare() {
+            // Hier sollte der tatsächliche Aufruf deiner Python-Methode stehen, um die Bilder zu vergleichen
+            // Diese Funktion sollte das Ergebnis zurückgeben, ob die Bilder übereinstimmen oder nicht
+            // Dies ist nur ein Platzhalter, bitte ersetze es durch deinen tatsächlichen Code
+            return "right"; // Hier sollte das tatsächliche Ergebnis stehen
+        }
     </script>
 </body>
 
