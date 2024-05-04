@@ -120,7 +120,7 @@
                     let ctx = canvas.getContext('2d');
 
                     // Set canvas dimensions to match the images
-                    canvas.width = 300; // Set your desired width
+                    canvas.width = 200; // Set your desired width
                     canvas.height = 200; // Set your desired height
 
                     // Draw the first image
@@ -128,14 +128,14 @@
                     image1.onload = function () {
                         ctx.drawImage(image1, 0, 0, canvas.width / 2, canvas.height);
                     };
-                    image1.src = 'static/bmw-logo-2020.jpg';
+                    image1.src = data.label1_filepath;
 
                     // Draw the second image
                     let image2 = new Image();
                     image2.onload = function () {
                         ctx.drawImage(image2, canvas.width / 2, 0, canvas.width / 2, canvas.height);
                     };
-                    image2.src = 'static/bmw-logo-2020.jpg';
+                    image2.src = data.label2_filepath;
 
                     // Append the canvas to the container div
                     let container = document.querySelector('.container');
