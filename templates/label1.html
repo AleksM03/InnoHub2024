@@ -48,7 +48,7 @@
             /* Make the video element fill its container */
             height: auto;
             /* Maintain aspect ratio */
-            margin-top: 80px;
+            margin-top: 20px;
             margin-bottom: 20px;
             /* Add some space below the video */
         }
@@ -57,9 +57,12 @@
         #cameraImage {
             max-width: 100%;
             /* Vollständige Breite */
-            margin-top: 60px;
             margin-bottom: 20px;
             /* Abstand zum nächsten Element */
+            width: 100%;
+            /* Set the width to 100% */
+            height: auto;
+            /* Maintain aspect ratio */
         }
 
         /* Button styles */
@@ -148,7 +151,7 @@
             let canvas = document.createElement('canvas');
             let context = canvas.getContext('2d');
             canvas.width = video.videoWidth; // Set canvas dimensions to match video
-            canvas.height = video.videoHeight;
+            canvas.height = video.videoWidth; // Make canvas square
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
             // Display the captured image
             let imgData = canvas.toDataURL('image/png');
