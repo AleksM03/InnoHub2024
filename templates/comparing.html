@@ -107,7 +107,19 @@
             window.history.back();
         });
 
+        // Variable zum Speichern des Zustands (initial auf 0 gesetzt)
+        let state = 0;
 
+        // Timer-Funktion zum Umleiten nach 2 Sekunden
+        setTimeout(function () {
+            if (state === 0) {
+                window.location.href = 'wrong.html';
+                state = 1; // Setze den Zustand auf 1 für das nächste Mal
+            } else {
+                window.location.href = 'right.html';
+                state = 0; // Setze den Zustand auf 0 für das nächste Mal
+            }
+        }, 2000);
     </script>
 </body>
 
