@@ -128,14 +128,14 @@
                     image1.onload = function () {
                         ctx.drawImage(image1, 0, 0, canvas.width / 2, canvas.height);
                     };
-                    image1.src = data.label1_filepath;
+                    image1.src = 'static/bmw-logo-2020.jpg';
 
                     // Draw the second image
                     let image2 = new Image();
                     image2.onload = function () {
                         ctx.drawImage(image2, canvas.width / 2, 0, canvas.width / 2, canvas.height);
                     };
-                    image2.src = data.label2_filepath;
+                    image2.src = 'static/bmw-logo-2020.jpg';
 
                     // Append the canvas to the container div
                     let container = document.querySelector('.container');
