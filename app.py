@@ -31,13 +31,9 @@ def comparing():
 
 
 # Route for saving picture from label1
-@app.route('/save_label1', methods=['POST'])
+@app.route('/save_label1', methods=['GET', 'POST'])
 def save_label1():
-    if 'image' not in request.files:
-        return 'No image part'
     file = request.files['image']
-    if file.filename == '':
-        return 'No selected file'
     if file:
         filename = 'label1.png'  # Define the filename
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -47,13 +43,9 @@ def save_label1():
 # Route for saving picture from label2
 
 
-@app.route('/save_label2', methods=['POST'])
+@app.route('/save_label2', methods=['GET', 'POST'])
 def save_label2():
-    if 'image' not in request.files:
-        return 'No image part'
     file = request.files['image']
-    if file.filename == '':
-        return 'No selected file'
     if file:
         filename = 'label2.png'  # Define the filename
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -84,13 +76,6 @@ def get_pictures():
         app.config['UPLOAD_FOLDER'], label2_filename)
 
     return render_template('comparing.html', label1_filepath=label1_filepath, label2_filepath=label2_filepath)
-
-# Route for serving the images
-
-
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
 ###################
