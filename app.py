@@ -1,205 +1,121 @@
-<!DOCTYPE html >
-<html lang = "en" >
+from flask import request, jsonify
+from flask import Flask, render_template, request, redirect, url_for
+import os
+import tempfile
 
-<head >
-    <link rel = "stylesheet" href = '/static/style.css' / >
-    <meta charset = "UTF-8" >
-    <meta name = "viewport" content = "width=device-width, initial-scale=1.0" >
-    <title > My BMW Flask Application < /title >
-    <style >
-        /* Neue Stile für den Startbildschirm * /
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            / * Vollständige Höhe des Viewports * /
-            background-color:  # f2f2f2;
-            / * Leicht grauer Hintergrund * /
-        }
+app = Flask(__name__)
 
-        .container {
-            width: 75 % ;
-            / * 75 % der Bildschirmbreite * /
-            max-width: 800px;
-            / * Maximale Breite von 800px * /
-            padding: 20px;
-            text-align: center;
-        }
+# Define the directory to save the images
+UPLOAD_FOLDER = 'static/temp_images'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-        .start-screen {
-            padding-top: 10 % ;
-            padding-bottom: 10 % ;
-            / * Höhe des Startbildschirms 50 % der Bildschirmhöhe * /
-        }
 
-        .container h2 {
-            font-family: Helvetica, Arial, sans-serif;
-            / * Verwende Helvetica * /
-            font-size: 24px;
-            / * Größere Schriftgröße * /
-            margin-bottom: 30px;
-            / * Abstand zum Logo * /
-        }
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-        /* Video styles * /
-        # video {
-            width: 100 % ;
-            /* Make the video element fill its container * /
-            height: auto;
-            /* Maintain aspect ratio * /
-            margin-top: 80px;
-            margin-bottom: 20px;
-            /* Add some space below the video * /
-        }
 
-        / * Bild-Vorschau-Stile * /
-        # cameraImage {
-            max-width: 100 % ;
-            / * Vollständige Breite * /
-            margin-top: 60px;
-            margin-bottom: 20px;
-            / * Abstand zum nächsten Element * /
-        }
+@app.route('/label1', methods=['GET', 'POST'])
+def label1():
+    return render_template('label1.html')
 
-        / * Button styles * /
-        .button-group {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
 
-        button {
-            background-color:  # 002d72;
-            / * BMW Blue * /
-            color:  # fff;
-            / * Weißer Text * /
-            font-size: 20px;
-            / * Mittelgroße Schrift * /
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            / * Abgerundete Ecken * /
-            cursor: pointer;
-            margin-top: 20px;
-            / * Abstand nach oben * /
-        }
+@app.route('/label2', methods=['GET', 'POST'])
+def label2():
+    return render_template('label2.html')
 
-        / * Stile für den Cancel Button * /
-        .cancel-button {
-            position: absolute;
-            top: 30px;
-            left: 20px;
-            width: 20px;
-            height: 20px;
-            / * Hinzugefügt, um die Höhe des Buttons festzulegen * /
-            background: transparent;
-            / * Änderung der Hintergrundfarbe auf transparent * /
-            background-image: url('/static/x_icon.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            cursor: pointer;
-            border: none;
-        }
-    < /style >
-< / head >
 
-< body >
+@app.route('/comparing', methods=['GET', 'POST'])
+def comparing():
+    return render_template('comparing.html')
 
-    < div class = "container" >
-        <!-- Cancel Button - ->
-        < button class = "cancel-button" onclick = "goBack()" aria-label = "Cancel" > </button >
-        < h2 > Shipping Label < /h2 >
-        < video id = "video" autoplay > </video > <!-- Removed width and height attributes - ->
-        < img id = "cameraImage" src = "/static/camera.png" >
-        < div class = "button-group" >
-            < button id = "capture" > Capture < /button >
-            < button id = "nextButton" > Next < /button >
-        < / div >
-        < button id = "requestPermission" > Request Camera Permission < /button >
-    < / div >
 
-    < script >
-        // Funktion zum Zurückgehen zur vorherigen Seite
-        function goBack() {
-            window.history.back();
-        }
-        // Get the video element
-        let video = document.getElementById('video');
+# Route for saving picture from label1
+@app.route('/save_label1', methods=['POST'])
+def save_label1():
+    if 'image' not in request.files:
+        return 'No image part'
+    file = request.files['image']
+    if file.filename == '':
+        return 'No selected file'
+    if file:
+        filename = 'label1.png'  # Define the filename
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+        return 'Image from label1 saved successfully'
 
-        // Access user's camera
-        navigator.mediaDevices.getUserMedia({
-            video: {facingMode: {ideal: 'environment'}}
-        })
-            .then(function(stream) {
-                video.srcObject = stream;
-                video.play();
-            })
-            .catch(function (err) {
-                console.log("Error: " + err);
-            });
+# Route for saving picture from label2
 
-        // Get the Capture button
-        let captureButton = document.getElementById('capture');
 
-        // Function to capture the image and save it
-        captureButton.addEventListener('click', function () {
-            let canvas = document.createElement('canvas');
-            let context = canvas.getContext('2d');
-            canvas.width = video.videoWidth; // Set canvas dimensions to match video
-            canvas.height = video.videoHeight;
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            // Display the captured image
-            let imgData = canvas.toDataURL('image/png');
-            document.getElementById('cameraImage').src = imgData;
-            
-            // Save the image
-            saveImage(imgData);
-        });
+@app.route('/save_label2', methods=['POST'])
+def save_label2():
+    if 'image' not in request.files:
+        return 'No image part'
+    file = request.files['image']
+    if file.filename == '':
+        return 'No selected file'
+    if file:
+        filename = 'label2.png'  # Define the filename
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+        return 'Image from label2 saved successfully'
 
-        // Function to save the image
-        function saveImage(imgData) {
-            // Send the image data to the server to save it
-            fetch('/save_image', {
-                method: 'POST',
-                body: imgData,
-                headers: {
-                    'Content-Type': 'image/png'
-                }
-            })
-                .then(response => {
-                    if (response.ok) {
-                        console.log('Bild erfolgreich gespeichert.');
-                    } else {
-                        console.error('Fehler beim Speichern des Bildes.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Fehler beim Speichern des Bildes:', error);
-                });
-        }
 
-        // Get the button to request camera permission
-        let requestPermissionButton = document.getElementById('requestPermission');
+@app.route('/right')
+def right():
+    return render_template('right.html')
 
-        // Function to request camera permission
-        requestPermissionButton.addEventListener('click', function () {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(function (stream) {
-                    console.log('Camera permission granted.');
-                })
-                .catch(function (err) {
-                    console.error('Error requesting camera permission:', err);
-                });
-        });
 
-        // Next button event
-        let nextButton = document.getElementById('nextButton');
-        nextButton.addEventListener('click', function () {
-            window.location.href = 'label2'; // Change this to your desired URL
-        });
-    </script>
-</body>
+@app.route('/wrong')
+def wrong():
+    return render_template('wrong.html')
 
-</html>
+# Route for serving the saved pictures
+
+
+@app.route('/get_pictures')
+def get_pictures():
+    label1_filename = 'label1.png'
+    label2_filename = 'label2.png'
+
+    label1_filepath = os.path.join(
+        app.config['UPLOAD_FOLDER'], label1_filename)
+    label2_filepath = os.path.join(
+        app.config['UPLOAD_FOLDER'], label2_filename)
+
+    return render_template('comparing.html', label1_filepath=label1_filepath, label2_filepath=label2_filepath)
+
+# Route for serving the images
+
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+
+###################
+
+@app.route('/process_images', methods=['POST'])
+def process_images():
+    # Die Bilder werden als JSON-Daten gesendet
+    data = request.json
+    image1_path = data['image1']
+    image2_path = data['image2']
+
+    # Hier kannst du den Algorithmus aufrufen, der die Bilder verarbeitet und das Ergebnis zurückgibt
+    result = process_algorithm(image1_path, image2_path)
+
+    return jsonify(result=result)
+
+
+def process_algorithm(image1, image2):
+    # Hier implementierst du den Algorithmus zur Verarbeitung der Bilder und Rückgabe des Ergebnisses
+    # Dies ist nur ein Platzhalter, bitte ersetze es durch deinen tatsächlichen Code
+    # Zum Beispiel könntest du hier eine Bildverarbeitungs-Bibliothek wie OpenCV verwenden
+    # und eine Funktion aufrufen, die die Bilder vergleicht und das Ergebnis zurückgibt
+    # In diesem Beispiel geben wir einfach ein statisches Ergebnis zurück
+    return "right"
+
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=5000)
