@@ -48,7 +48,7 @@
             /* Make the video element fill its container */
             height: auto;
             /* Maintain aspect ratio */
-            margin-top: 20px;
+            margin-top: 80px;
             margin-bottom: 20px;
             /* Add some space below the video */
         }
@@ -57,6 +57,7 @@
         #cameraImage {
             max-width: 100%;
             /* Vollständige Breite */
+            margin-top: 60px;
             margin-bottom: 20px;
             /* Abstand zum nächsten Element */
         }
@@ -88,11 +89,14 @@
         /* Stile für den Cancel Button */
         .cancel-button {
             position: absolute;
-            top: 20px;
+            top: 30px;
             left: 20px;
             width: 20px;
+            height: 20px;
+            /* Hinzugefügt, um die Höhe des Buttons festzulegen */
+            background: transparent;
+            /* Änderung der Hintergrundfarbe auf transparent */
             background-image: url('/static/x_icon.png');
-            /* Pfad zum Bild */
             background-size: contain;
             background-repeat: no-repeat;
             cursor: pointer;
@@ -102,11 +106,11 @@
 </head>
 
 <body>
+
     <div class="container">
         <!-- Cancel Button -->
         <button class="cancel-button" onclick="goBack()" aria-label="Cancel"></button>
-
-        <h2>BMW Label</h2>
+        <h2>Shipping Label</h2>
         <video id="video" autoplay></video> <!-- Removed width and height attributes -->
         <img id="cameraImage" src="/static/camera.png">
         <div class="button-group">
@@ -139,7 +143,7 @@
         // Get the Capture button
         let captureButton = document.getElementById('capture');
 
-        // Function to capture the image
+        // Function to capture the image and save it
         captureButton.addEventListener('click', function () {
             let canvas = document.createElement('canvas');
             let context = canvas.getContext('2d');
@@ -149,7 +153,32 @@
             // Display the captured image
             let imgData = canvas.toDataURL('image/png');
             document.getElementById('cameraImage').src = imgData;
+
+            // Save the image
+            saveImage(imgData);
         });
+
+        // Function to save the image
+        function saveImage(imgData) {
+            // Send the image data to the server to save it
+            fetch('/save_image_label2', {
+                method: 'POST',
+                body: imgData,
+                headers: {
+                    'Content-Type': 'image/png'
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Bild erfolgreich gespeichert.');
+                    } else {
+                        console.error('Fehler beim Speichern des Bildes.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Fehler beim Speichern des Bildes:', error);
+                });
+        }
 
         // Get the button to request camera permission
         let requestPermissionButton = document.getElementById('requestPermission');
@@ -168,7 +197,7 @@
         // Next button event
         let nextButton = document.getElementById('nextButton');
         nextButton.addEventListener('click', function () {
-            window.location.href = '/comparing'; // Change this to your desired URL
+            window.location.href = 'label2'; // Change this to your desired URL
         });
     </script>
 </body>

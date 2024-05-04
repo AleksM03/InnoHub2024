@@ -79,65 +79,40 @@
             <!-- Hier sollte sich das Ladesymbol befinden -->
             <img src="/static/loading.gif" alt="Loading..." width="50">
         </div>
-        <div class="images" id="imageContainer">
-            <!-- Hier werden die Bilder angezeigt -->
-        </div>
         <div class="button-group">
             <button id="cancelButton">Cancel</button>
         </div>
     </div>
 
     <script>
-        // Wenn die Seite geladen wird, rufe die Python-Methode compare auf und zeige das Ergebnis an
-        window.onload = function () {
-            // Rufe die Python-Methode compare auf und erhalte das Ergebnis
-            var result = compare();
-            // Entscheide basierend auf dem Ergebnis, ob die Seite "right" oder "wrong" angezeigt wird
-            if (result === "right") {
-                // Zeige die "right" Seite an
-                window.location.href = '/right'; // Ändere diesen Link entsprechend
-            } else if (result === "wrong") {
-                // Zeige die "wrong" Seite an
-                window.location.href = '/wrong'; // Ändere diesen Link entsprechend
-            }
-        };
-
         // Wenn der Cancel-Button geklickt wird, breche die Operation ab und kehre zur vorherigen Seite zurück
         document.getElementById('cancelButton').addEventListener('click', function () {
             window.history.back();
         });
 
-        // Beispiel-Funktion zum Aufrufen der Python-Methode
-        function compare() {
-            // Hier sollte der
+        // This function fetches and displays the saved images
+        function displaySavedImages() {
+            // Fetch the images from the server
+            fetch('/get_pictures')
+                .then(response => response.json())
+                .then(data => {
+                    // Display the images on the comparing page
+                    let container = document.querySelector('.container');
+                    let image1 = document.createElement('img');
+                    image1.src = data.label1_filepath;
+                    image1.classList.add('small-image');
+                    container.appendChild(image1);
+
+                    let image2 = document.createElement('img');
+                    image2.src = data.label2_filepath;
+                    image2.classList.add('small-image');
+                    container.appendChild(image2);
+                })
+                .catch(error => console.error('Error fetching images:', error));
         }
 
-        function loadImages() {
-            var image1 = document.getElementById('image1Input').files[0];
-            var image2 = document.getElementById('image2Input').files[0];
-
-            var reader1 = new FileReader();
-            reader1.onload = function (e) {
-                var image1Data = e.target.result;
-                var img1 = document.createElement('img');
-                img1.src = image1Data;
-                img1.style.width = '100px'; // Anpassen der Bildgröße
-                var container = document.getElementById('imageContainer');
-                container.appendChild(img1);
-            };
-            reader1.readAsDataURL(image1);
-
-            var reader2 = new FileReader();
-            reader2.onload = function (e) {
-                var image2Data = e.target.result;
-                var img2 = document.createElement('img');
-                img2.src = image2Data;
-                img2.style.width = '100px'; // Anpassen der Bildgröße
-                var container = document.getElementById('imageContainer');
-                container.appendChild(img2);
-            };
-            reader2.readAsDataURL(image2);
-        }
+        // Call the function to display the saved images when the page loads
+        displaySavedImages();
     </script>
 </body>
 

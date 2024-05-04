@@ -154,36 +154,7 @@
             // Display the captured image
             let imgData = canvas.toDataURL('image/png');
             document.getElementById('cameraImage').src = imgData;
-            saveImage();
         });
-
-        // Funktion zum Speichern des Bildes
-        function saveImage() {
-            let cameraImage = document.getElementById('cameraImage');
-            let imgData = cameraImage.src;
-
-            // Erzeuge einen eindeutigen Dateinamen für label1
-            let fileName = 'label1.png';
-
-            // Sende das Bild an den Server, um es zu speichern
-            fetch('/upload', {
-                method: 'POST',
-                body: imgData,
-                headers: {
-                    'Content-Type': 'image/png'
-                }
-            })
-                .then(response => {
-                    if (response.ok) {
-                        console.log('Bild erfolgreich gespeichert.');
-                    } else {
-                        console.error('Fehler beim Speichern des Bildes.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Fehler beim Speichern des Bildes:', error);
-                });
-        }
         // Get the button to request camera permission
         let requestPermissionButton = document.getElementById('requestPermission');
 
