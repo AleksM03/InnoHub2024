@@ -118,8 +118,8 @@
                     // Display the images on the comparing page
                     let image1 = document.getElementById('image1');
                     let image2 = document.getElementById('image2');
-                    image1.src = 'static/bmw-logo-2020.jpg';
-                    image2.src = 'static/bmw-logo-2020.jpg';
+                    image1.src = data.label1;
+                    image2.src = data.label2;
                 })
                 .catch(error => console.error('Error fetching images:', error));
         }

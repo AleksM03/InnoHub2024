@@ -75,7 +75,7 @@ def get_pictures():
     label2_filepath = os.path.join(
         app.config['UPLOAD_FOLDER'], label2_filename)
 
-    return render_template('comparing.html', label1_filepath=label1_filepath, label2_filepath=label2_filepath)
+    return jsonify({'label1': label1_filepath, 'label2': label2_filepath})
 
 
 ###################
