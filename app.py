@@ -2,7 +2,7 @@ from flask import request, jsonify
 from flask import Flask, render_template, request, redirect, url_for
 import os
 import tempfile
-from main import comparator
+
 
 app = Flask(__name__)
 
@@ -94,12 +94,13 @@ def process_images():
     return jsonify(result=result)
 
 
+"""
 def process_algorithm(image1, image2):
     if comparator(image1, image2):
         return "right"
     else:
         return "wrong"
-
+"""
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

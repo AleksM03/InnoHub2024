@@ -1,5 +1,5 @@
-from delivery_label import number_reader
-from bmw_label import extract_text
+from deprecated.delivery_label import number_reader
+from deprecated.bmw_label import extract_text
 
 
 def comparator(bmw_path, delivery_path):
