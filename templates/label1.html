@@ -64,6 +64,29 @@
             /* Das Video wird skaliert, um den gesamten Container zu bedecken */
         }
 
+        /* Bild-Vorschau-Stile */
+        #cameraImageContainer {
+            width: 100%;
+            /* Vollständige Breite */
+            max-width: 300px;
+            /* Maximale Breite */
+            margin: 0 auto;
+            /* Zentrieren */
+            overflow: hidden;
+            /* Verhindere Überlauf */
+        }
+
+        #cameraImage {
+            width: 100%;
+            /* Vollständige Breite */
+            height: auto;
+            /* Automatische Höhe beibehalten */
+            max-height: 300px;
+            /* Maximale Höhe */
+            object-fit: cover;
+            /* Das Bild wird skaliert, um den gesamten Container zu bedecken */
+        }
+
         #cameraImageContainer,
         #videoContainer {
             max-width: none;
