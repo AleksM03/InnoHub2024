@@ -1,7 +1,5 @@
-from flask import request, jsonify
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import os
-import tempfile
 
 app = Flask(__name__)
 
@@ -26,22 +24,19 @@ def label2():
 
 @app.route('/comparing', methods=['GET', 'POST'])
 def comparing():
-    return render_template('comparing.html')
+    # Aufrufen der Funktion, um die Bildpfade zu erhalten
+    image1_path, image2_path = get_both_pictures()
+    return render_template('comparing.html', image1=image1_path, image2=image2_path)
 
 
-@app.route('/right')
-def right():
-    return render_template('right.html')
+def get_both_pictures():
+    # Get the paths of the two images
+    image1_path = os.path.join(TEMP_IMAGE_DIR, 'label1.png')
+    image2_path = os.path.join(TEMP_IMAGE_DIR, 'label2.png')
+    return image1_path, image2_path
 
 
-@app.route('/wrong')
-def wrong():
-    return render_template('wrong.html')
-
-###############
-
-
-@app.route('/upload', methods=['GET', 'POST'])
+@app.route('/upload', methods=['POST'])
 def upload():
     # Überprüfe, ob die Anfrage ein Bild enthält
     if 'image' not in request.files:
@@ -73,15 +68,15 @@ def upload():
     # Weiterleitung zur Ergebnisseite
     return redirect(url_for('result'))
 
-# Route für die Ergebnisseite
+
+@app.route('/right')
+def right():
+    return render_template('right.html')
 
 
-@app.route('/result')
-def result():
-    # Bildpfad für die Anzeige auf der Ergebnisseite
-    image_path = os.path.join(TEMP_IMAGE_DIR, 'image.png')
-
-    return render_template('result.html', image_path=image_path)
+@app.route('/wrong')
+def wrong():
+    return render_template('wrong.html')
 
 
 ###################
