@@ -65,7 +65,7 @@ def wrong():
 # Route for serving the saved pictures
 
 
-@app.route('/get_pictures')
+@app.route('/get_pictures', methods=['POST'])
 def get_pictures():
     label1_filename = 'label1.png'
     label2_filename = 'label2.png'
