@@ -115,6 +115,7 @@
         <img id="cameraImage" src="/static/camera.png">
         <div class="button-group">
             <button id="capture">Capture</button>
+            <button id="saveButton">Save Image</button> <!-- Button zum Speichern des Bildes -->
             <button id="nextButton">Next</button>
         </div>
         <button id="requestPermission">Request Camera Permission</button>
@@ -154,6 +155,35 @@
             let imgData = canvas.toDataURL('image/png');
             document.getElementById('cameraImage').src = imgData;
         });
+
+        // Funktion zum Speichern des Bildes
+        function saveImage() {
+            let cameraImage = document.getElementById('cameraImage');
+            let imgData = cameraImage.src;
+
+            // Sende das Bild an den Server, um es zu speichern
+            fetch('/upload', {
+                method: 'POST',
+                body: imgData,
+                headers: {
+                    'Content-Type': 'image/png'
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Bild erfolgreich gespeichert.');
+                    } else {
+                        console.error('Fehler beim Speichern des Bildes.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Fehler beim Speichern des Bildes:', error);
+                });
+        }
+
+        // Den Button auswählen und den Event-Listener hinzufügen
+        let saveButton = document.getElementById('saveButton');
+        saveButton.addEventListener('click', saveImage);
 
         // Get the button to request camera permission
         let requestPermissionButton = document.getElementById('requestPermission');

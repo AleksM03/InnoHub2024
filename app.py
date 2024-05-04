@@ -1,5 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import request, jsonify
+from flask import Flask, render_template, request, redirect, url_for
 import os
+import tempfile
 
 app = Flask(__name__)
 
@@ -17,16 +19,28 @@ def label1():
     return render_template('label1.html')
 
 
+def save_image(image_data, filename):
+    # Speichere das Bild im temporären Verzeichnis
+    image_path = os.path.join(TEMP_IMAGE_DIR, filename)
+    with open(image_path, 'wb') as f:
+        f.write(image_data)
+
+
 @app.route('/label2', methods=['GET', 'POST'])
 def label2():
     return render_template('label2.html')
 
 
+def save_image(image_data, filename):
+    # Speichere das Bild im temporären Verzeichnis
+    image_path = os.path.join(TEMP_IMAGE_DIR, filename)
+    with open(image_path, 'wb') as f:
+        f.write(image_data)
+
+
 @app.route('/comparing', methods=['GET', 'POST'])
 def comparing():
-    # Aufrufen der Funktion, um die Bildpfade zu erhalten
-    image1_path, image2_path = get_both_pictures()
-    return render_template('comparing.html', image1=image1_path, image2=image2_path)
+    return render_template('comparing.html')
 
 
 def get_both_pictures():
@@ -57,13 +71,8 @@ def upload():
         filename = 'image.png'
 
     # Überprüfe, ob die Datei bereits existiert und ob sie überschrieben werden muss
-    image_path = os.path.join(TEMP_IMAGE_DIR, filename)
-    if os.path.exists(image_path) and (page == 'label1' or not os.path.exists(os.path.join(TEMP_IMAGE_DIR, 'label1.png'))) \
-            and (page == 'label2' or not os.path.exists(os.path.join(TEMP_IMAGE_DIR, 'label2.png'))):
-        os.remove(image_path)
-
-    # Speichere das Bild im temporären Verzeichnis
-    image.save(image_path)
+    image_data = image.read()
+    save_image(image_data, filename)
 
     # Weiterleitung zur Ergebnisseite
     return redirect(url_for('result'))
