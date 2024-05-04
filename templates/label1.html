@@ -48,7 +48,7 @@
             /* Make the video element fill its container */
             height: auto;
             /* Maintain aspect ratio */
-            margin-top: 20px;
+            margin-top: 80px;
             margin-bottom: 20px;
             /* Add some space below the video */
         }
@@ -59,10 +59,6 @@
             /* Vollständige Breite */
             margin-bottom: 20px;
             /* Abstand zum nächsten Element */
-            width: 100%;
-            /* Set the width to 100% */
-            height: auto;
-            /* Maintain aspect ratio */
         }
 
         /* Button styles */
@@ -151,7 +147,7 @@
             let canvas = document.createElement('canvas');
             let context = canvas.getContext('2d');
             canvas.width = video.videoWidth; // Set canvas dimensions to match video
-            canvas.height = video.videoWidth; // Make canvas square
+            canvas.height = video.videoHeight;
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
             // Display the captured image
             let imgData = canvas.toDataURL('image/png');
