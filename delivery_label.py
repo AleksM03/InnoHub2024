@@ -2,7 +2,7 @@ import easyocr
 import pandas as pd
 import cv2
 import os
-import numpy as np
+
 
 
 # Load the image
@@ -12,7 +12,6 @@ def number_reader(img_path):
         reader = easyocr.Reader(["en", "de"])
         result = reader.readtext(image, decoder='beamsearch', text_threshold=0.55, mag_ratio=0.5, canvas_size=4032, contrast_ths=0.3, min_size=100)
         result_df = pd.DataFrame(result)[1]
-        print(result_df.to_string())
         filtered = [i.replace(" ", "") for i in result_df if i != "" and i[0].isdigit()]
         return filtered
 

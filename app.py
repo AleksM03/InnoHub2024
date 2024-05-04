@@ -2,6 +2,7 @@ from flask import request, jsonify
 from flask import Flask, render_template, request, redirect, url_for
 import os
 import tempfile
+from main import comparator
 
 app = Flask(__name__)
 
@@ -94,12 +95,10 @@ def process_images():
 
 
 def process_algorithm(image1, image2):
-    # Hier implementierst du den Algorithmus zur Verarbeitung der Bilder und Rückgabe des Ergebnisses
-    # Dies ist nur ein Platzhalter, bitte ersetze es durch deinen tatsächlichen Code
-    # Zum Beispiel könntest du hier eine Bildverarbeitungs-Bibliothek wie OpenCV verwenden
-    # und eine Funktion aufrufen, die die Bilder vergleicht und das Ergebnis zurückgibt
-    # In diesem Beispiel geben wir einfach ein statisches Ergebnis zurück
-    return "right"
+    if comparator(image1, image2):
+        return "right"
+    else:
+        return "wrong"
 
 
 if __name__ == '__main__':

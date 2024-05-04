@@ -85,8 +85,6 @@ def extract_text(image_path, language=['en']):
     # Extract and concatenate the text
     text_list = [result[1] for result in results]
 
-    print(text_list)
-
     bmw_label_data = pd.DataFrame(text_list, columns=['BMW_extracted'])
     bmw_final = extract_2_values(bmw_label_data)
     bmw_final = bmw_final + find_string_before_value(bmw_label_data['BMW_extracted'])
