@@ -43,22 +43,49 @@
         }
 
         /* Video styles */
+        #videoContainer {
+            width: 100%;
+            /* Vollständige Breite */
+            max-width: 300px;
+            /* Maximale Breite */
+            margin: 0 auto;
+            /* Zentrieren */
+            overflow: hidden;
+            /* Verhindere Überlauf */
+        }
+
         #video {
             width: 100%;
-            /* Make the video element fill its container */
+            /* Vollständige Breite */
             height: auto;
-            /* Maintain aspect ratio */
-            margin-top: 80px;
-            margin-bottom: 20px;
-            /* Add some space below the video */
+            /* Automatische Höhe beibehalten */
+            max-height: 300px;
+            /* Maximale Höhe */
+            object-fit: cover;
+            /* Das Video wird skaliert, um den gesamten Container zu bedecken */
         }
 
         /* Bild-Vorschau-Stile */
-        #cameraImage {
-            max-width: 100%;
+        #cameraImageContainer {
+            width: 100%;
             /* Vollständige Breite */
-            margin-bottom: 20px;
-            /* Abstand zum nächsten Element */
+            max-width: 300px;
+            /* Maximale Breite */
+            margin: 0 auto;
+            /* Zentrieren */
+            overflow: hidden;
+            /* Verhindere Überlauf */
+        }
+
+        #cameraImage {
+            width: 100%;
+            /* Vollständige Breite */
+            height: auto;
+            /* Automatische Höhe beibehalten */
+            max-height: 300px;
+            /* Maximale Höhe */
+            object-fit: cover;
+            /* Das Bild wird skaliert, um den gesamten Container zu bedecken */
         }
 
         /* Button styles */
@@ -109,9 +136,13 @@
     <div class="container">
         <!-- Cancel Button -->
         <button class="cancel-button" onclick="goBack()" aria-label="Cancel"></button>
-        <video id="video" autoplay></video> <!-- Removed width and height attributes -->
+        <div id="videoContainer">
+            <video id="video" autoplay></video> <!-- Removed width and height attributes -->
+        </div>
         <h2>BMW Label</h2>
-        <img id="cameraImage" src="/static/camera.png">
+        <div id="cameraImageContainer">
+            <img id="cameraImage" src="/static/camera.png">
+        </div>
         <div class="button-group">
             <button id="capture">Capture</button>
             <button id="nextButton">Next</button>

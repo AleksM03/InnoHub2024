@@ -44,14 +44,24 @@
         }
 
         /* Video styles */
+        #videoContainer {
+            width: 100%;
+            /* Vollständige Breite */
+            max-width: 300px;
+            /* Maximale Breite */
+            margin: 0 auto;
+            /* Zentrieren */
+            overflow: hidden;
+            /* Verhindere Überlauf */
+        }
+
         #video {
             width: 100%;
-            /* Make the video element fill its container */
-            height: auto;
-            /* Maintain aspect ratio */
-            margin-top: 80px;
-            margin-bottom: 20px;
-            /* Add some space below the video */
+            /* Vollständige Breite */
+            height: 300px;
+            /* Feste Höhe */
+            object-fit: cover;
+            /* Das Video wird skaliert, um den gesamten Container zu bedecken */
         }
 
         /* Bild-Vorschau-Stile */
@@ -62,6 +72,8 @@
             /* Maximale Breite */
             margin: 0 auto;
             /* Zentrieren */
+            overflow: hidden;
+            /* Verhindere Überlauf */
         }
 
         #cameraImage {
@@ -123,7 +135,9 @@
     <div class="container">
         <!-- Cancel Button -->
         <button class="cancel-button" onclick="goBack()" aria-label="Cancel"></button>
-        <video id="video" autoplay></video> <!-- Removed width and height attributes -->
+        <div id="videoContainer">
+            <video id="video" autoplay></video> <!-- Removed width and height attributes -->
+        </div>
         <h2>Shipping Label</h2>
         <div id="cameraImageContainer">
             <img id="cameraImage" src="/static/camera.png">
