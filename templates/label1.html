@@ -102,6 +102,13 @@
             cursor: pointer;
             border: none;
         }
+
+        /* Stile für die Anzeige des Bildspeicherstatus */
+        #imageStatus {
+            font-size: 14px;
+            margin-top: 10px;
+            color: green;
+        }
     </style>
 </head>
 
@@ -113,6 +120,7 @@
         <h2>Shipping Label</h2>
         <video id="video" autoplay></video> <!-- Removed width and height attributes -->
         <img id="cameraImage" src="/static/camera.png">
+        <div id="imageStatus"></div>
         <div class="button-group">
             <button id="capture">Capture</button>
             <button id="nextButton">Next</button>
@@ -170,6 +178,10 @@
                 .then(response => {
                     if (response.ok) {
                         console.log('Bild erfolgreich gespeichert.');
+                        // Bild erfolgreich gespeichert, speichere den Status im Session Storage
+                        sessionStorage.setItem('temporaryImage', 'true');
+                        // Aktualisiere die Anzeige des Bildspeicherstatus
+                        updateImageStatus();
                     } else {
                         console.error('Fehler beim Speichern des Bildes.');
                     }
@@ -177,6 +189,33 @@
                 .catch(error => {
                     console.error('Fehler beim Speichern des Bildes:', error);
                 });
+        }
+
+        // Funktion zum Aktualisieren der Anzeige des Bildspeicherstatus
+        function updateImageStatus() {
+            const imageStatus = document.getElementById('imageStatus');
+            const temporaryImageExists = sessionStorage.getItem('temporaryImage');
+            if (temporaryImageExists) {
+                imageStatus.textContent = 'Bild im temporären Speicher vorhanden';
+            } else {
+                imageStatus.textContent = 'Kein Bild im temporären Speicher vorhanden';
+            }
+        }
+
+        // Funktion zum Überprüfen, ob Bilder im Session Storage vorhanden sind
+        function checkTemporaryImages() {
+            const temporaryImageExists = sessionStorage.getItem('temporaryImage');
+            if (temporaryImageExists) {
+                // Bilder sind im Session Storage vorhanden
+                console.log('Bilder im temporären Speicher gefunden');
+                // Aktualisiere die Anzeige des Bildspeicherstatus
+                updateImageStatus();
+            } else {
+                // Keine Bilder im Session Storage vorhanden
+                console.log('Keine Bilder im temporären Speicher gefunden');
+                // Aktualisiere die Anzeige des Bildspeicherstatus
+                updateImageStatus();
+            }
         }
 
         // Get the button to request camera permission
@@ -198,6 +237,9 @@
         nextButton.addEventListener('click', function () {
             window.location.href = 'label2'; // Change this to your desired URL
         });
+
+        // Call the function to check for temporary images when the page loads
+        checkTemporaryImages();
     </script>
 </body>
 

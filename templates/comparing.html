@@ -92,7 +92,10 @@
 <body>
     <div class="container">
         <h2>Comparing...</h2>
-        <div> <img id="image1" src="/static/camera.png"> <img id="image2" src="/static/camera.png"> </div>
+        <div>
+            <img id="image1" src="#" alt="Preview Image" style="display:none;">
+            <img id="image2" src="#" alt="Preview Image" style="display:none;">
+        </div>
         <div class="loading-icon">
             <!-- Hier sollte sich das Ladesymbol befinden -->
             <img src="/static/loading.gif" alt="Loading..." width="50">
@@ -108,7 +111,6 @@
             window.history.back();
         });
 
-        // This function fetches and displays the saved images
         // This function fetches and displays the saved images
         function displaySavedImages() {
             // Fetch the images from the server
@@ -127,6 +129,7 @@
 
         // Call the function to display the saved images when the page loads
         displaySavedImages();
+
     </script>
 </body>
 
