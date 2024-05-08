@@ -39,16 +39,16 @@
             /* Verwende Helvetica */
             font-size: 24px;
             /* Größere Schriftgröße */
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             /* Abstand zum Logo */
         }
 
         /* Video styles */
         #videoContainer {
             width: 100%;
-            /* Vollständige Breite */
             height: 50%;
             max-width: 300px;
+            max-height: 30vh;
             /* Maximale Breite */
             margin: 10% auto;
             /* Zentrieren */
@@ -57,8 +57,9 @@
         }
 
         #video {
-            width: 80%;
+            max-height: 50%;
             /* Vollständige Breite */
+            object-fit: contain;
         }
 
         /* Bild-Vorschau-Stile */
@@ -66,6 +67,7 @@
             width: 100%;
             /* Vollständige Breite */
             max-width: 300px;
+            max-height: 30vh;
             /* Maximale Breite */
             margin: 0 auto;
             /* Zentrieren */
