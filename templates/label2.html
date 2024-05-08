@@ -50,7 +50,9 @@
             max-height: 30vh;
             margin: 10% auto;
             overflow: hidden;
-            align-content: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         #video {
@@ -94,6 +96,8 @@
         /* Stile für den Cancel Button */
         .cancel-button {
             position: absolute;
+            left: 20px;
+            top: 20px;
             height: 30px;
             background-image: url('/static/x_icon.png');
             background-size: contain;
@@ -139,6 +143,8 @@
             .then(function (stream) {
                 video.srcObject = stream;
                 video.play();
+                video.style.width = '200%'; // Beispiel: Vergrößere das Video um das Doppelte
+                video.style.height = '200%';
             })
             .catch(function (err) {
                 console.log("Error: " + err);

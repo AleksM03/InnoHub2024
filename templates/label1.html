@@ -94,6 +94,8 @@
         /* Stile für den Cancel Button */
         .cancel-button {
             position: absolute;
+            left: 20px;
+            top: 20px;
             height: 30px;
             background-image: url('/static/x_icon.png');
             background-size: contain;
@@ -140,8 +142,21 @@
                 video.srcObject = stream;
                 video.play();
                 // Zoom in by increasing width and height
-                video.style.width = '200%'; // Beispiel: Vergrößere das Video um das Doppelte
-                video.style.height = '200%';
+                function zoomVideo(factor) {
+                    video.style.width = `${factor * 100}%`;
+                    video.style.height = `${factor * 100}%`;
+                    // Adjust the position to keep the video centered
+                    let containerWidth = video.parentElement.offsetWidth;
+                    let containerHeight = video.parentElement.offsetHeight;
+                    let scaledWidth = video.offsetWidth;
+                    let scaledHeight = video.offsetHeight;
+                    let offsetX = (containerWidth - scaledWidth) / 2;
+                    let offsetY = (containerHeight - scaledHeight) / 2;
+                    video.style.left = offsetX + 'px';
+                    video.style.top = offsetY + 'px';
+                }
+                // Call the function to zoom the video (change 2 to the desired zoom factor)
+                zoomVideo(2);
             })
             .catch(function (err) {
                 console.log("Error: " + err);
