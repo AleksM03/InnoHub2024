@@ -18,7 +18,7 @@ p {
 
 /* Header styles */
 header {
-    background-color: #002d72;
+    background-color: #1c69d4;
     /* BMW Blue */
     color: #fff;
     /* White text color */
@@ -28,7 +28,7 @@ header {
 
 /* Navigation styles */
 nav {
-    background-color: #001f4f;
+    background-color: #1c69d4;
     /* Dark blue */
     padding: 10px;
     text-align: center;
@@ -44,7 +44,7 @@ nav a {
 /* Button styles */
 button,
 button.button {
-    background-color: #002d72;
+    background-color: #1c69d4;
     /* BMW Blue */
     color: #fff;
     /* White text color */
@@ -59,7 +59,7 @@ button.button {
 
 button:hover,
 button.button:hover {
-    background-color: #001f4f;
+    background-color: #154c9a;
     /* Darker blue on hover */
 }
 
