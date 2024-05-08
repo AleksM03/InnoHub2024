@@ -88,20 +88,13 @@
             border-radius: 5px;
             /* Abgerundete Ecken */
             cursor: pointer;
-            margin-top: 8px;
-            margin-bottom: 8px;
+            margin: 8px;
         }
 
         /* Stile für den Cancel Button */
         .cancel-button {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 30px;
             height: 30px;
-            /* Hinzugefügt, um die Höhe des Buttons festzulegen */
-            background: transparent;
-            /* Änderung der Hintergrundfarbe auf transparent */
             background-image: url('/static/x_icon.png');
             background-size: contain;
             background-repeat: no-repeat;
@@ -146,6 +139,9 @@
             .then(function (stream) {
                 video.srcObject = stream;
                 video.play();
+                // Zoom in by increasing width and height
+                video.style.width = '200%'; // Beispiel: Vergrößere das Video um das Doppelte
+                video.style.height = '200%';
             })
             .catch(function (err) {
                 console.log("Error: " + err);
