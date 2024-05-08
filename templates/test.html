@@ -8,7 +8,7 @@
     <title>Document</title>
     <style>
         .container {
-            width: auto;
+            width: 500px;
             height: auto;
             background-color: rgb(43, 52, 226);
         }
@@ -24,6 +24,14 @@
             /* Verhindere Überlauf */
             background-color: blueviolet;
             object-fit: contain;
+            align-content: center;
+
+        }
+
+        .inner-container {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
         }
 
         img {
@@ -65,7 +73,9 @@
     <div class="container">
         <button class="cancel-button" aria-label="Cancel"></button>
         <div id="videoContainer">
-            <img src="/Users/Admin/Documents/Studium/8.Semester/BMWInnoChallenge/InnoHub2024/static/camera.png">
+            <div class="" inner-container>
+                <img src="/Users/Admin/Documents/Studium/8.Semester/BMWInnoChallenge/InnoHub2024/static/camera.png">
+            </div>
         </div>
         <div id="videoContainer">
             <img src="/Users/Admin/Documents/Studium/8.Semester/BMWInnoChallenge/InnoHub2024/static/camera.png">
