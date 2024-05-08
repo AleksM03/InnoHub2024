@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+    <style>
+        /* Video styles */
+        #videoContainer {
+            width: auto;
+            height: auto;
+            max-width: 300px;
+            /* Maximale Breite */
+            margin: 5% auto;
+            /* Zentrieren */
+            overflow: hidden;
+            /* Verhindere Überlauf */
+            background-color: blueviolet;
+        }
+
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+        }
+
+        .cancel-button {
+            position: absolute;
+            top: 30px;
+            left: 20px;
+            width: 20px;
+            height: 20px;
+            /* Hinzugefügt, um die Höhe des Buttons festzulegen */
+            background: transparent;
+            /* Änderung der Hintergrundfarbe auf transparent */
+            background-image: url('/Users/Admin/Documents/Studium/8.Semester/BMWInnoChallenge/InnoHub2024/static/x_icon.png');
+            background-size: contain;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn {
+            background-color: DodgerBlue;
+            border: none;
+            color: white;
+            padding: 6px 8px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button class="cancel-button" aria-label="Cancel"></button>
+        <div id="videoContainer">
+            <img src="/Users/Admin/Documents/Studium/8.Semester/BMWInnoChallenge/InnoHub2024/static/camera.png">
+            <h1>
+                Hallo
+            </h1>
+        </div>
+    </div>
+</body>
+
+</html>
