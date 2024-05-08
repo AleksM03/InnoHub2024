@@ -56,12 +56,8 @@
         }
 
         #video {
-            width: 100%;
+            width: 80%;
             /* Vollständige Breite */
-            height: 300px;
-            /* Feste Höhe */
-            object-fit: cover;
-            /* Das Video wird skaliert, um den gesamten Container zu bedecken */
         }
 
         /* Bild-Vorschau-Stile */
@@ -77,12 +73,10 @@
         }
 
         #cameraImage {
-            width: 100%;
+            width: 80%;
             /* Vollständige Breite */
             height: auto;
             /* Automatische Höhe beibehalten */
-            max-height: 300px;
-            /* Maximale Höhe */
             object-fit: cover;
             /* Das Bild wird skaliert, um den gesamten Container zu bedecken */
         }
@@ -145,7 +139,6 @@
         <div class="button-group">
             <button id="capture">Capture</button>
             <button id="nextButton">Next</button>
-            <button id="switchCamera">Switch Camera</button>
         </div>
         <button id="requestPermission">Request Camera Permission</button>
     </div>
@@ -157,27 +150,18 @@
         }
         // Get the video element
         let video = document.getElementById('video');
-        let currentFacingMode = 'environment';
 
         // Access user's camera
-        function startCamera() {
-            let constraints = {
-                video: {
-                    facingMode: currentFacingMode
-                }
-            };
-
-            navigator.mediaDevices.getUserMedia(constraints)
-                .then(function (stream) {
-                    video.srcObject = stream;
-                    video.play();
-                })
-                .catch(function (err) {
-                    console.log("Error: " + err);
-                });
-        }
-
-        startCamera();
+        navigator.mediaDevices.getUserMedia({
+            video: { facingMode: { ideal: 'environment' } }
+        })
+            .then(function (stream) {
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(function (err) {
+                console.log("Error: " + err);
+            });
 
         // Get the Capture button
         let captureButton = document.getElementById('capture');
@@ -236,24 +220,6 @@
         let nextButton = document.getElementById('nextButton');
         nextButton.addEventListener('click', function () {
             window.location.href = 'label2'; // Change this to your desired URL
-        });
-
-        // Button to switch camera
-        let switchCameraButton = document.getElementById('switchCamera');
-        switchCameraButton.addEventListener('click', function () {
-            navigator.mediaDevices.enumerateDevices()
-                .then(devices => {
-                    let videoDevices = devices.filter(device => device.kind === 'videoinput');
-                    if (videoDevices.length > 1) {
-                        currentFacingMode = currentFacingMode === 'user' ? 'environment' : 'user';
-                        startCamera();
-                    } else {
-                        console.log('Only one camera available.');
-                    }
-                })
-                .catch(err => {
-                    console.error('Error accessing camera devices:', err);
-                });
         });
     </script>
 </body>
