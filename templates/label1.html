@@ -120,6 +120,7 @@
         <div id="videoContainer">
             <video id="video" autoplay></video> <!-- Removed width and height attributes -->
         </div>
+        <input id="zoomSlider" type="range" min="1" max="5" step="0.1" value="1" style="display: none;">
         <h2>Shipping Label</h2>
         <div id="cameraImageContainer">
             <img id="cameraImage" src="/static/camera.png">
@@ -146,9 +147,28 @@
             .then(function (stream) {
                 video.srcObject = stream;
                 video.play();
-                // Zoom in by increasing width and height
-                video.style.width = '200%'; // Beispiel: Vergrößere das Video um das Doppelte
-                video.style.height = '200%';
+                // Check if zoom is supported
+                const [track] = stream.getVideoTracks();
+                const capabilities = track.getCapabilities();
+                const settings = track.getSettings();
+                if ('zoom' in settings) {
+                    // Show the zoom slider
+                    document.getElementById('zoomSlider').style.display = 'block';
+
+                    // Set initial zoom value
+                    const zoomSlider = document.getElementById('zoomSlider');
+                    zoomSlider.min = capabilities.zoom.min;
+                    zoomSlider.max = capabilities.zoom.max;
+                    zoomSlider.step = capabilities.zoom.step;
+                    zoomSlider.value = settings.zoom;
+
+                    // Update zoom when slider value changes
+                    zoomSlider.oninput = function (event) {
+                        track.applyConstraints({ advanced: [{ zoom: parseFloat(event.target.value) }] });
+                    };
+                } else {
+                    console.log('Zoom is not supported by this camera');
+                }
             })
             .catch(function (err) {
                 console.log("Error: " + err);
